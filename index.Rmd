@@ -71,7 +71,7 @@ ggsave(file.path(figureDir, "plot1.png"), width=9.6, height=5.4, dpi=100)
 --- .class #s5
 ## Learn More
 
-Visit my shiny app: [link](www.rstudio.com)
+Visit my shiny app: [https://trieutn.shinyapps.io/data_products_course_project/](https://trieutn.shinyapps.io/data_products_course_project/)
 
 
 
