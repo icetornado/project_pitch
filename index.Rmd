@@ -1,7 +1,7 @@
 ---
-title       : 
-subtitle    : 
-author      : 
+title       : Enerygy Statistic Database
+subtitle    : Electric, net installed capacity of electric power plants | United Nations Statistics Division
+author      : Trieu Tran
 job         : 
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
@@ -9,17 +9,70 @@ hitheme     : tomorrow      #
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
----
 
-## Read-And-Delete
+--- .class #s1
+## Introduction
+<p>Lorem Ipsum</p>
 
-1. Edit YAML front matter
-2. Write using R Markdown
-3. Use an empty line followed by three dashes to separate slides!
+--- .class #s2
+## Data
+1. Where to get data
+URL: http://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEC
 
---- .class #id 
+2. Take a quick look at the data
+```{r echo=FALSE}
+rawData <- read.csv(file.path("data", "UNdata_Export.csv"), stringsAsFactors=TRUE, na.strings = c("NA","#DIV/0!",""))
+str(rawData)
+d <- rawData[1:(nrow(rawData) -2), c(1,2,3,5)]
+names(d) <- c("Country", "Commodity", "Year", "Quantity")
+d$code = "G"
+test <- grep("installed", d$Commodity)
+d[test, "code"] = "I"
+d$code = as.factor(d$code)
+```
 
-## Slide 2
+--- .class #s3 
+## Data visualization
+### Total net installed capacity of electric power plants of G20 countries 
+##### Graph generation code
+```{r echo = FALSE}
+library(ggplot2)
+library(dplyr)
+figureDir <- 'figure'
+if (!file.exists(figureDir)){
+    dir.create(figureDir)
+} 
+```
+
+```{r echo = TRUE}
+countries <- c("Argentina", "Australia", "Brazil", "Canada", "China", "France", "Germany", "India", "Indonesia", "Italy", 
+                         "Japan", "Mexico", "Russian Federation", "Saudi Arabia", "South Africa", "Korea, Republic of", "Turkey", "United Kingdom", 
+                         "United States")
+
+results <- d %>%
+        filter(Year > 2002) %>%
+        filter(code == "I") %>%
+        filter(Country %in%  countries) %>%
+        group_by(Country, Year) %>%
+        summarise(ttl = sum(Quantity)/1000)
+
+p <- ggplot(data = results, aes(x = factor(Year), y = ttl, color = Country))
+p <- p + geom_point() + aes(group = Country) + geom_line() 
+p <- p + labs(x = "Year", y = "Total Installed Capacity (MW)", title = "G20 Countries")
+
+ggsave(file.path(figureDir, "plot1.png"), width=9.6, height=5.4, dpi=100)
+```
+
+--- .class #s4 
+## Data visualization
+### Total net installed capacity of electric power plants of G20 countriess 
+![](figure/plot1.png)
+
+--- .class #s5
+## Learn More
+
+Visit my shiny app: [link](www.rstudio.com)
+
 
 
 

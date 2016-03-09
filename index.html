@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enerygy Statistic Database</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Enerygy Statistic Database">
+  <meta name="author" content="Trieu Tran">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Enerygy Statistic Database</h1>
+    <h2>Electric, net installed capacity of electric power plants | United Nations Statistics Division</h2>
+    <p>Trieu Tran<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="class" id="s1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Lorem Ipsum</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="s2" style="background:;">
+  <hgroup>
+    <h2>Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li><p>Where to get data
+URL: <a href="http://data.un.org/Data.aspx?d=EDATA&amp;f=cmID%3aEC">http://data.un.org/Data.aspx?d=EDATA&amp;f=cmID%3aEC</a></p></li>
+<li><p>Take a quick look at the data</p></li>
+</ol>
+
+<pre><code>## &#39;data.frame&#39;:    47591 obs. of  6 variables:
+##  $ Country.or.Area        : Factor w/ 242 levels &quot;1&quot;,&quot;Afghanistan&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Commodity...Transaction: Factor w/ 38 levels &quot;Electricity - net installed capacity of electric power plants public solar&quot;,..: 20 20 20 20 20 20 20 20 20 20 ...
+##  $ Year                   : int  2013 2012 2011 2010 2009 2008 2007 2006 2005 2004 ...
+##  $ Unit                   : Factor w/ 1 level &quot;Kilowatts,  thousand&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Quantity               : num  431 431 431 489 489 489 489 489 489 489 ...
+##  $ Quantity.Footnotes     : int  1 NA NA 1 1 NA 1 1 1 1 ...
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="s3" style="background:;">
+  <hgroup>
+    <h2>Data visualization</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Total net installed capacity of electric power plants of G20 countries</h3>
+
+<h5>Graph generation code</h5>
+
+<pre><code class="r">countries &lt;- c(&quot;Argentina&quot;, &quot;Australia&quot;, &quot;Brazil&quot;, &quot;Canada&quot;, &quot;China&quot;, &quot;France&quot;, &quot;Germany&quot;, &quot;India&quot;, &quot;Indonesia&quot;, &quot;Italy&quot;, 
+                         &quot;Japan&quot;, &quot;Mexico&quot;, &quot;Russian Federation&quot;, &quot;Saudi Arabia&quot;, &quot;South Africa&quot;, &quot;Korea, Republic of&quot;, &quot;Turkey&quot;, &quot;United Kingdom&quot;, 
+                         &quot;United States&quot;)
+
+results &lt;- d %&gt;%
+        filter(Year &gt; 2002) %&gt;%
+        filter(code == &quot;I&quot;) %&gt;%
+        filter(Country %in%  countries) %&gt;%
+        group_by(Country, Year) %&gt;%
+        summarise(ttl = sum(Quantity)/1000)
+
+p &lt;- ggplot(data = results, aes(x = factor(Year), y = ttl, color = Country))
+p &lt;- p + geom_point() + aes(group = Country) + geom_line() 
+p &lt;- p + labs(x = &quot;Year&quot;, y = &quot;Total Installed Capacity (MW)&quot;, title = &quot;G20 Countries&quot;)
+
+ggsave(file.path(figureDir, &quot;plot1.png&quot;), width=9.6, height=5.4, dpi=100)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="s4" style="background:;">
+  <hgroup>
+    <h2>Data visualization</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Total net installed capacity of electric power plants of G20 countriess</h3>
+
+<p><img src="figure/plot1.png" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="s5" style="background:;">
+  <hgroup>
+    <h2>Learn More</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Visit my shiny app: <a href="www.rstudio.com">link</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Data visualization'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Data visualization'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Learn More'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
