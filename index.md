@@ -1,5 +1,5 @@
 ---
-title       : Enerygy Statistic Database
+title       : Enerygy Statistics Database
 subtitle    : Electric, net installed capacity of electric power plants | United Nations Statistics Division
 author      : Trieu Tran
 job         : 
@@ -12,14 +12,17 @@ knit        : slidify::knit2slides
 
 --- .class #s1
 ## Introduction
-<p>Lorem Ipsum</p>
+"Energy Statistics Database" is a collective of data of energy production, trade, conversion and consumption of more than 220 countries/territories in the world.  The United Nation Statistics Division has developed this database and has made it publicly available.
+
+This presentation provides a quick look at "Electricity, net installed capacity of electric power plants" data (as a subset of the "Energy Statistics Database"), and also comes with some R code snipets for the data exploration purpose.
 
 --- .class #s2
 ## Data
-1. Where to get data
-URL: http://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEC
 
-2. Take a quick look at the data
+### Where to get data
+Download from URL: [Here](http://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEC)
+
+### Take a quick look at the data
 
 ```
 ## 'data.frame':	47591 obs. of  6 variables:
@@ -31,9 +34,26 @@ URL: http://data.un.org/Data.aspx?d=EDATA&f=cmID%3aEC
 ##  $ Quantity.Footnotes     : int  1 NA NA 1 1 NA 1 1 1 1 ...
 ```
 
---- .class #s3 
+--- .class #s3
+## Data
+
+### Data Description
+
+<ol>
+        <li> Country: Names of countries/territories </li>
+        <li> Commodity...Transaction: Installed or generating capacity of different types of electric power plants or pwer sources </li>
+        <li>Year: Ranges from 1990 to 2013</li>
+        <li>Year: Ranges from 1990 to 2013</li>
+        <li>Unit: power unit in Kilowatts (KWs)</li>
+        <li>Quantity: Total power installed or generated in a specific year in KWs</li>
+</ol>
+
+--- .class #s4 
 ## Data visualization
+
 ### Total net installed capacity of electric power plants of G20 countries 
+
+
 ##### Graph generation code
 
 
@@ -54,15 +74,17 @@ p <- ggplot(data = results, aes(x = factor(Year), y = ttl, color = Country))
 p <- p + geom_point() + aes(group = Country) + geom_line() 
 p <- p + labs(x = "Year", y = "Total Installed Capacity (MW)", title = "G20 Countries")
 
-ggsave(file.path(figureDir, "plot1.png"), width=9.6, height=5.4, dpi=100)
+ggsave(file.path(figureDir, "plot1.png"), width=9.0, height=5.4, dpi=100)
 ```
 
---- .class #s4 
+--- .class #s5
 ## Data visualization
+
 ### Total net installed capacity of electric power plants of G20 countriess 
+
 ![](figure/plot1.png)
 
---- .class #s5
+--- .class #s6
 ## Learn More
 
 Visit my shiny app: [https://trieutn.shinyapps.io/data_products_course_project/](https://trieutn.shinyapps.io/data_products_course_project/)

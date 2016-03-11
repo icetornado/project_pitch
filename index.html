@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Enerygy Statistic Database</title>
+  <title>Enerygy Statistics Database</title>
   <meta charset="utf-8">
-  <meta name="description" content="Enerygy Statistic Database">
+  <meta name="description" content="Enerygy Statistics Database">
   <meta name="author" content="Trieu Tran">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Enerygy Statistic Database</h1>
+    <h1>Enerygy Statistics Database</h1>
     <h2>Electric, net installed capacity of electric power plants | United Nations Statistics Division</h2>
     <p>Trieu Tran<br/></p>
   </hgroup>
@@ -46,7 +46,9 @@
     <h2>Introduction</h2>
   </hgroup>
   <article data-timings="">
-    <p>Lorem Ipsum</p>
+    <p>&quot;Energy Statistics Database&quot; is a collective of data of energy production, trade, conversion and consumption of more than 220 countries/territories in the world.  The United Nation Statistics Division has developed this database and has made it publicly available.</p>
+
+<p>This presentation provides a quick look at &quot;Electricity, net installed capacity of electric power plants&quot; data (as a subset of the &quot;Energy Statistics Database&quot;), and also comes with some R code snipets for the data exploration purpose.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -57,11 +59,11 @@
     <h2>Data</h2>
   </hgroup>
   <article data-timings="">
-    <ol>
-<li><p>Where to get data
-URL: <a href="http://data.un.org/Data.aspx?d=EDATA&amp;f=cmID%3aEC">http://data.un.org/Data.aspx?d=EDATA&amp;f=cmID%3aEC</a></p></li>
-<li><p>Take a quick look at the data</p></li>
-</ol>
+    <h3>Where to get data</h3>
+
+<p>Download from URL: <a href="http://data.un.org/Data.aspx?d=EDATA&amp;f=cmID%3aEC">Here</a></p>
+
+<h3>Take a quick look at the data</h3>
 
 <pre><code>## &#39;data.frame&#39;:    47591 obs. of  6 variables:
 ##  $ Country.or.Area        : Factor w/ 242 levels &quot;1&quot;,&quot;Afghanistan&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
@@ -77,6 +79,26 @@ URL: <a href="http://data.un.org/Data.aspx?d=EDATA&amp;f=cmID%3aEC">http://data.
 </slide>
 
 <slide class="class" id="s3" style="background:;">
+  <hgroup>
+    <h2>Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Data Description</h3>
+
+<ol>
+        <li> Country: Names of countries/territories </li>
+        <li> Commodity...Transaction: Installed or generating capacity of different types of electric power plants or pwer sources </li>
+        <li>Year: Ranges from 1990 to 2013</li>
+        <li>Year: Ranges from 1990 to 2013</li>
+        <li>Unit: power unit in Kilowatts (KWs)</li>
+        <li>Quantity: Total power installed or generated in a specific year in KWs</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="s4" style="background:;">
   <hgroup>
     <h2>Data visualization</h2>
   </hgroup>
@@ -100,14 +122,14 @@ p &lt;- ggplot(data = results, aes(x = factor(Year), y = ttl, color = Country))
 p &lt;- p + geom_point() + aes(group = Country) + geom_line() 
 p &lt;- p + labs(x = &quot;Year&quot;, y = &quot;Total Installed Capacity (MW)&quot;, title = &quot;G20 Countries&quot;)
 
-ggsave(file.path(figureDir, &quot;plot1.png&quot;), width=9.6, height=5.4, dpi=100)
+ggsave(file.path(figureDir, &quot;plot1.png&quot;), width=9.0, height=5.4, dpi=100)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="class" id="s4" style="background:;">
+<slide class="class" id="s5" style="background:;">
   <hgroup>
     <h2>Data visualization</h2>
   </hgroup>
@@ -120,7 +142,7 @@ ggsave(file.path(figureDir, &quot;plot1.png&quot;), width=9.6, height=5.4, dpi=1
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="class" id="s5" style="background:;">
+<slide class="class" id="s6" style="background:;">
   <hgroup>
     <h2>Learn More</h2>
   </hgroup>
@@ -149,7 +171,7 @@ ggsave(file.path(figureDir, &quot;plot1.png&quot;), width=9.6, height=5.4, dpi=1
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Data visualization'>
+        data-slide=3 title='Data'>
          3
       </a>
     </li>
@@ -161,8 +183,14 @@ ggsave(file.path(figureDir, &quot;plot1.png&quot;), width=9.6, height=5.4, dpi=1
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Learn More'>
+        data-slide=5 title='Data visualization'>
          5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Learn More'>
+         6
       </a>
     </li>
   </ul>
